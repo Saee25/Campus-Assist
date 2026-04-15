@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { safeNavigate } from "@/lib/safeNavigate";
 
 interface AuthUser {
   id: string;
@@ -47,16 +48,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     
     // Redirect based on role
     if (userData.role === 'client') {
-      router.push('/dashboard/client');
+      safeNavigate(router, "/dashboard/client");
     } else {
-      router.push('/dashboard/helper');
+      safeNavigate(router, "/dashboard/helper");
     }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    router.push('/login');
+    safeNavigate(router, "/login");
   };
 
   return (

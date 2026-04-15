@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { safeNavigate } from "@/lib/safeNavigate";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -16,12 +17,12 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        router.push("/login");
+        safeNavigate(router, "/login", "replace");
       } else if (allowedRoles && userRole && !allowedRoles.includes(userRole)) {
-        if (userRole === "professor") router.push("/dashboard/professor");
-        else if (userRole === "staff") router.push("/dashboard/staff");
-        else if (userRole === "admin") router.push("/dashboard/admin");
-        else router.push("/profile");
+        if (userRole === "professor") safeNavigate(router, "/dashboard/professor", "replace");
+        else if (userRole === "staff") safeNavigate(router, "/dashboard/staff", "replace");
+        else if (userRole === "admin") safeNavigate(router, "/dashboard/admin", "replace");
+        else safeNavigate(router, "/profile", "replace");
       }
     }
   }, [user, userRole, loading, router, allowedRoles]);

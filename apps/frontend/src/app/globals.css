@@ -3,139 +3,274 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-amaranth-50: #fff1f2;
+  --color-amaranth-100: #ffe4e6;
+  --color-amaranth-200: #fdced4;
+  --color-amaranth-300: #fba6b0;
+  --color-amaranth-400: #f97386;
+  --color-amaranth-500: #f14260;
+  --color-amaranth-600: #df244d;
+  --color-amaranth-700: #bb153e;
+  --color-amaranth-800: #9d143a;
+  --color-amaranth-900: #861538;
+  --color-amaranth-950: #4b0619;
+}
+
+:root {
+  --primary: var(--color-amaranth-600);
+  --primary-light: var(--color-amaranth-100);
+  --primary-dark: var(--color-amaranth-800);
+  --bg-main: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --card-bg: #ffffff;
+  --radius-xl: 1.5rem;
+  --radius-lg: 1rem;
+  --surface-border: #e5e7eb;
+  --surface-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #020617; /* slate-950 */
-  color: #f8fafc; /* slate-50 */
-  /* Prevent bounce scroll on iOS */
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  color: var(--text-main);
   overscroll-behavior-y: none;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
-/* Base page background for public routes */
+/* Responsive Font Sizes */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Premium Layout Elements */
 .page-bg {
-  background: radial-gradient(circle at top right, #1e1b4b 0%, #020617 60%, #000000 100%);
+  background:
+    radial-gradient(circle at top right, rgba(241, 66, 96, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at bottom left, rgba(241, 66, 96, 0.05) 0%, transparent 40%),
+    #ffffff;
+  min-height: 100vh;
 }
 
-/* Glassmorphism primitives */
+.landing-bg {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(252, 211, 77, 0.28) 0%, rgba(252, 211, 77, 0) 42%),
+    radial-gradient(circle at 88% 12%, rgba(253, 230, 138, 0.26) 0%, rgba(253, 230, 138, 0) 38%),
+    linear-gradient(180deg, #fffbeb 0%, #fffef7 48%, #ffffff 100%);
+}
+
+.ambient-blob {
+  animation: blobDrift 10s ease-in-out infinite;
+}
+
+/* Glassmorphism (Light Mode) */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+  animation: slideUpSoft 0.38s ease-out both;
 }
 
-/* Bottom Nav bar glass */
 .nav-glass {
-  background: rgba(2, 6, 23, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 -8px 18px rgba(15, 23, 42, 0.06);
+  animation: slideUpSoft 0.45s ease-out both;
 }
 
-/* Scrollbar hiding for app-like lists */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-/* Form input base */
+/* Inputs & Forms */
 .form-input {
   width: 100%;
   padding: 0.875rem 1.25rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-border);
   font-size: 1rem;
-  background: rgba(2, 6, 23, 0.5);
-  color: #f8fafc;
-  transition: all 0.2s ease;
+  background: #ffffff;
+  color: var(--text-main);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   outline: none;
 }
 
 .form-input:focus {
-  border-color: #6366f1; /* indigo-500 */
-  background: rgba(15, 23, 42, 0.8);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, #ffffff);
 }
 
-.form-input::placeholder {
-  color: #475569; /* slate-600 */
-}
-
-.custom-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, #64748b 50%),
-    linear-gradient(135deg, #64748b 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) calc(50% - 3px),
-    calc(100% - 12px) calc(50% - 3px);
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-}
-
-.form-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #94a3b8; /* slate-400 */
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-/* Primary button - Premium App Feel */
 .btn-primary {
   width: 100%;
   padding: 1rem 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
-  border-radius: 1rem;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-amaranth-600) 0%, var(--color-amaranth-700) 100%);
+  color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+  box-shadow: 0 8px 18px rgba(223, 36, 77, 0.22);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(223, 36, 77, 0.24);
 }
 
 .btn-primary:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(223, 36, 77, 0.18);
 }
 
-/* Card */
-.card {
-  background: rgba(30, 41, 59, 0.5);
-  border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Animated splash gradients */
-.splash-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
+.btn-primary:disabled {
   opacity: 0.6;
-  z-index: 0;
-  animation: float 10s infinite ease-in-out alternate;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
-  100% { transform: translateY(10px) scale(0.95); }
+.card {
+  background: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-shadow);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: #dbe1ea;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes slideUpSoft {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blobDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0) scale(1.03);
+  }
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-logo-float {
+  animation: logoFloat 3.8s ease-in-out infinite;
+}
+
+.app-shell-enter {
+  animation: slideUpSoft 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide Scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Checkbox/Radio (Premium feel) */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+/* Bottom Tab Bar Style for PWA */
+.tab-active {
+  color: var(--primary);
+  position: relative;
+}
+
+.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
 }

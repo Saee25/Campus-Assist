@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 const CampusMap = dynamic(() => import("@/components/CampusMap"), { 
   ssr: false, 
   loading: () => (
-    <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-slate-900/50 rounded-3xl animate-pulse text-indigo-400 font-medium">
+    <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-slate-50 rounded-3xl animate-pulse text-amaranth-600 font-bold uppercase tracking-widest text-xs">
       Loading Delivery Map...
     </div>
   )
@@ -61,62 +61,64 @@ export default function StaffDashboard() {
   return (
     <ProtectedRoute allowedRoles={["staff"]}>
       <AppShell title={activeTab === "queue" ? "Delivery Tasks" : "Campus Radar"}>
-        <div className="p-4">
+        <div className="p-4 space-y-6">
           
           {/* Timeline / Queue List */}
           {activeTab === "queue" && (
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-200">
+            <div className="space-y-4 animate-fade-in">
               {queue.length === 0 ? (
-                <div className="py-20 flex flex-col items-center justify-center text-center text-slate-500">
-                  <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center mb-6 border border-indigo-500/20">
-                    <svg className="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div className="py-20 flex flex-col items-center justify-center text-center text-slate-400 bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200">
+                  <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm border border-slate-50">
+                    <svg className="w-10 h-10 text-amaranth-600 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   </div>
-                  <p className="text-xl font-bold text-slate-300">All caught up!</p>
-                  <p className="text-sm mt-2 text-slate-500 max-w-xs">No active delivery requests at the moment. Take a short break.</p>
+                  <p className="text-xl font-black text-slate-600 tracking-tight uppercase">All caught up!</p>
+                  <p className="text-xs mt-2 text-slate-400 max-w-[200px] font-medium leading-relaxed">No active delivery requests at the moment. Take a short break.</p>
                 </div>
               ) : (
                 queue.map(order => (
-                  <div key={order.id} className="card overflow-hidden">
-                    <div className="p-4 border-b border-white/5">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest ${
-                          order.status === "Pending" ? "bg-amber-500/20 text-amber-400" : "bg-indigo-500/20 text-indigo-400"
+                  <div key={order.id} className="bg-white border border-slate-100 rounded-3xl shadow-lg overflow-hidden animate-fade-in">
+                    <div className="p-5 border-b border-slate-50">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className={`px-2.5 py-1 rounded-lg text-[9px] uppercase font-black tracking-widest shadow-sm ${
+                          order.status === "Pending" ? "bg-amber-50 text-amber-600 border border-amber-100" : "bg-amaranth-50 text-amaranth-600 border border-amaranth-100"
                         }`}>
                           {order.status}
                         </span>
-                        <span className="text-xs font-mono text-slate-500 bg-slate-900/50 px-1.5 py-0.5 rounded">#{order.id.slice(0, 6)}</span>
+                        <span className="text-[9px] font-black text-slate-300 bg-slate-50 px-2 py-1 rounded-md border border-slate-50">#{order.id.slice(0, 6).toUpperCase()}</span>
                       </div>
-                      <h4 className="font-bold text-slate-100 text-xl mt-2">Room {order.roomNumber}</h4>
-                      <p className="text-sm text-slate-400 mt-1 flex items-center gap-1.5">
-                        <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                      <h4 className="font-black text-slate-900 text-2xl mt-1 tracking-tight leading-none mb-3">Room {order.roomNumber}</h4>
+                      <div className="text-xs text-slate-500 font-bold flex items-center gap-2 mt-2 uppercase tracking-tight">
+                        <span className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
+                          <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        </span>
                         {order.professorName}
-                      </p>
+                      </div>
                     </div>
                     
-                    <div className="p-4 bg-slate-900/30">
+                    <div className="p-5 bg-slate-50/50">
                       <ul className="space-y-2">
                         {order.items.map((item, idx) => (
-                          <li key={idx} className="flex justify-between text-sm text-slate-300 items-center">
-                            <span className="font-medium">{item.name}</span>
-                            <span className="font-bold text-slate-400 bg-slate-800 px-2 py-0.5 rounded-md text-xs">x{item.quantity}</span>
+                          <li key={idx} className="flex justify-between text-sm items-center">
+                            <span className="font-bold text-slate-700">{item.name}</span>
+                            <span className="font-black text-[10px] text-slate-400 bg-white border border-slate-100 px-2.5 py-1 rounded-lg shadow-sm">x{item.quantity}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="p-4 bg-slate-800/20 border-t border-white/5">
+                    <div className="p-5 bg-white border-t border-slate-50">
                       {order.status === "Pending" ? (
                         <button 
                           onClick={() => handleAccept(order.id)}
-                          className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2 shadow-[0_4px_14px_0_rgba(79,70,229,0.39)]"
+                          className="w-full py-4.5 bg-amaranth-600 hover:bg-amaranth-700 text-white font-black rounded-2xl active:scale-95 transition-all flex items-center justify-center gap-2 shadow-xl shadow-amaranth-600/20 uppercase tracking-tight text-base"
                         >
                           Accept Delivery
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </button>
                       ) : (
                         <button 
                           onClick={() => handleDeliver(order.id)}
-                          className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2 shadow-[0_4px_14px_0_rgba(16,185,129,0.39)]"
+                          className="w-full py-4.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl active:scale-95 transition-all flex items-center justify-center gap-2 shadow-xl shadow-emerald-600/20 uppercase tracking-tight text-base"
                         >
                           Mark Delivered
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
@@ -131,18 +133,18 @@ export default function StaffDashboard() {
 
           {/* Map View */}
           {activeTab === "map" && (
-            <div className="animate-in fade-in zoom-in-95 duration-200">
-              <div className="w-full h-[calc(100vh-160px)] rounded-[2rem] overflow-hidden relative isolate z-0 border border-slate-800 shadow-2xl">
+            <div className="animate-fade-in">
+              <div className="w-full h-[calc(100vh-200px)] rounded-[2.5rem] overflow-hidden relative isolate z-0 border border-slate-100 shadow-2xl">
                 <CampusMap />
                 
                 {/* Overlay instructions */}
                 <div className="absolute top-4 left-4 right-4 z-[999] pointer-events-none">
-                  <div className="bg-slate-900/80 backdrop-blur-md p-3 rounded-2xl border border-white/10 flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-white shadow-xl flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-2xl bg-amaranth-50 text-amaranth-600 flex items-center justify-center shrink-0 border border-amaranth-100 shadow-sm transition-transform hover:scale-105 pointer-events-auto">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
-                    <p className="text-xs font-medium text-slate-200 pointer-events-auto">
-                      Navigate to the requested buildings using the interactive campus map.
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 pointer-events-auto leading-relaxed">
+                      Navigate to building hotspots using the radar system.
                     </p>
                   </div>
                 </div>

@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   title: "TSEC Express",
   description: "Progressive Web App for TSEC Express",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" }],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: "#df244d",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -44,12 +51,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="h-full w-full overflow-hidden bg-slate-950 text-slate-100 flex flex-col">
+      <body className="h-full w-full overflow-hidden bg-white text-slate-900 flex flex-col">
         <AuthProvider>
           <SocketProvider>
             {children}
             <Toaster position="top-center" toastOptions={{ 
-              style: { background: '#1e293b', color: '#fff', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' } 
+              style: { background: '#ffffff', color: '#1f2937', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' } 
             }} />
           </SocketProvider>
         </AuthProvider>

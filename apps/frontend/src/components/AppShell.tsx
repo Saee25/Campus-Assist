@@ -6,18 +6,19 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function AppShell({ title, children }: { title: string, children: React.ReactNode }) {
   const { user } = useAuth();
+  const profileInitial = user?.name?.charAt(0).toUpperCase() || user?.username?.charAt(0).toUpperCase() || "U";
 
   return (
-    <div className="flex flex-col h-full w-full bg-slate-950 text-slate-50 overflow-hidden relative isolate">
+    <div className="flex flex-col h-full w-full bg-white text-slate-900 overflow-hidden relative isolate page-bg app-shell-enter">
       {/* Background gradients */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-amaranth-100/20 rounded-full blur-[90px] -z-10 pointer-events-none ambient-blob"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-amaranth-50/15 rounded-full blur-[90px] -z-10 pointer-events-none ambient-blob" style={{ animationDelay: "1.5s" }}></div>
 
       {/* Top App Bar */}
-      <header className="glass-panel z-40 sticky top-0 px-5 py-4 flex justify-between items-center border-b-0">
-        <h1 className="text-xl font-bold tracking-tight text-white">{title}</h1>
-        <Link href="/profile" className="flex items-center justify-center w-9 h-9 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 font-bold hover:bg-indigo-500/30 transition-colors">
-          {user?.email ? user.email.charAt(0).toUpperCase() : "U"}
+      <header className="glass-panel z-40 sticky top-0 px-4 py-3.5 flex justify-between items-center border-b border-slate-100/70">
+        <h1 className="text-lg font-bold tracking-tight text-slate-900">{title}</h1>
+        <Link href="/profile" className="flex items-center justify-center w-9 h-9 rounded-xl bg-amaranth-600 text-white font-semibold hover:bg-amaranth-700 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
+          {profileInitial}
         </Link>
       </header>
 

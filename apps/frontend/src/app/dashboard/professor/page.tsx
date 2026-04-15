@@ -125,7 +125,7 @@ export default function ProfessorDashboard() {
         <div className="p-4 space-y-6">
           {/* Request Tab */}
           {activeTab === "request" && (
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-200">
+            <div className="space-y-4 animate-fade-in">
               {/* Search Bar */}
               <div className="relative">
                 <input 
@@ -133,9 +133,9 @@ export default function ProfessorDashboard() {
                   placeholder="Search materials..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="form-input pl-11"
+                  className="form-input pl-11 shadow-sm border-slate-100"
                 />
-                <svg className="w-5 h-5 text-slate-500 absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-300 absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -143,20 +143,20 @@ export default function ProfessorDashboard() {
               {/* Items List */}
               <div className="flex flex-col gap-3">
                 {filteredInventory.length === 0 ? (
-                  <div className="py-12 text-center text-slate-500 card border-dashed">
+                  <div className="py-12 text-center text-slate-400 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
                     No items found.
                   </div>
                 ) : (
                   filteredInventory.map(item => (
-                    <div key={item.id} className="card p-4 flex justify-between items-center group">
+                    <div key={item.id} className="bg-white border border-slate-100 p-4 rounded-3xl shadow-sm flex justify-between items-center group active:scale-[0.98] transition-all">
                       <div className="flex-1 pr-4">
-                        <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">{item.category}</span>
-                        <h3 className="text-base font-bold text-slate-100">{item.name}</h3>
-                        <p className="text-xs text-slate-400 mt-1 line-clamp-1">{item.description}</p>
+                        <span className="text-[10px] font-black text-amaranth-600 uppercase tracking-widest">{item.category}</span>
+                        <h3 className="text-base font-black text-slate-900 leading-tight">{item.name}</h3>
+                        <p className="text-xs text-slate-500 mt-1 line-clamp-1 font-medium">{item.description}</p>
                       </div>
                       <button 
                         onClick={() => addToCart(item)}
-                        className="w-10 h-10 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center hover:bg-indigo-500/20 active:scale-95 transition-all border border-indigo-500/20"
+                        className="w-10 h-10 rounded-2xl bg-amaranth-50 text-amaranth-600 flex items-center justify-center hover:bg-amaranth-600 hover:text-white active:scale-95 transition-all border border-amaranth-100 shadow-sm"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" /></svg>
                       </button>
@@ -164,45 +164,45 @@ export default function ProfessorDashboard() {
                   ))
                 )}
                 {/* Spacer for Floating Action Button area */}
-                <div className="h-20"></div>
+                <div className="h-24"></div>
               </div>
             </div>
           )}
 
           {/* Orders Tab */}
           {activeTab === "orders" && (
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-200">
+            <div className="space-y-4 animate-fade-in">
               {activeOrders.length === 0 ? (
-                <div className="py-16 flex flex-col items-center text-center text-slate-500">
-                  <svg className="w-16 h-16 text-slate-700/50 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="py-16 flex flex-col items-center text-center text-slate-400 bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200">
+                  <svg className="w-16 h-16 text-amaranth-600 opacity-20 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
-                  <p className="text-lg font-bold text-slate-400">No active orders</p>
-                  <p className="text-sm mt-1">Your supply requests will appear here.</p>
+                  <p className="text-lg font-bold text-slate-500">No active orders</p>
+                  <p className="text-xs mt-1 font-medium">Your supply requests will appear here.</p>
                 </div>
               ) : (
                 activeOrders.map(order => (
-                  <div key={order.id} className="card overflow-hidden">
-                    <div className="p-4 border-b border-white/5 flex justify-between items-start">
+                  <div key={order.id} className="bg-white border border-slate-100 rounded-3xl shadow-lg overflow-hidden animate-fade-in">
+                    <div className="p-5 border-b border-slate-50 flex justify-between items-start">
                       <div>
-                        <p className="text-xs text-slate-500 font-mono">#{order.id.slice(0, 8)}</p>
-                        <h3 className="font-bold text-slate-100 text-lg mt-0.5">Room {order.roomNumber}</h3>
+                        <p className="text-[9px] text-amaranth-600 font-black uppercase tracking-widest bg-amaranth-50 px-2 py-1 rounded inline-block mb-2">#{order.id.slice(0, 8).toUpperCase()}</p>
+                        <h3 className="font-black text-slate-900 text-xl leading-tight">Room {order.roomNumber}</h3>
                       </div>
-                      <div className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                        order.status === "Pending" ? "bg-amber-500/20 text-amber-300 border border-amber-500/30" :
-                        order.status === "In Transit" ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30" :
-                        order.status === "Delivered" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" :
-                        "bg-slate-500/20 text-slate-300"
+                      <div className={`px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-sm ${
+                        order.status === "Pending" ? "bg-amber-100 text-amber-700 border border-amber-200" :
+                        order.status === "In Transit" ? "bg-amaranth-100 text-amaranth-700 border border-amaranth-200" :
+                        order.status === "Delivered" ? "bg-emerald-100 text-emerald-700 border border-emerald-200" :
+                        "bg-slate-100 text-slate-600 border border-slate-200"
                       }`}>
                         {order.status}
                       </div>
                     </div>
-                    <div className="p-4 bg-slate-900/50">
-                      <ul className="space-y-1.5">
+                    <div className="p-5 bg-slate-50/50">
+                      <ul className="space-y-2">
                         {order.items.map((item, idx) => (
-                          <li key={idx} className="flex justify-between text-sm text-slate-300">
-                            <span>{item.name}</span>
-                            <span className="font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded text-slate-400">x{item.quantity}</span>
+                          <li key={idx} className="flex justify-between text-sm items-center">
+                            <span className="font-bold text-slate-700">{item.name}</span>
+                            <span className="font-black text-[10px] bg-white border border-slate-100 px-2.5 py-1 rounded-lg text-slate-400 shadow-sm">x{item.quantity}</span>
                           </li>
                         ))}
                       </ul>
@@ -216,46 +216,46 @@ export default function ProfessorDashboard() {
 
         {/* Floating Cart Button */}
         {cart.length > 0 && activeTab === "request" && (
-          <div className="fixed bottom-20 right-4 left-4 z-40 flex justify-center animate-in slide-in-from-bottom-5">
+          <div className="fixed bottom-24 right-4 left-4 z-40 flex justify-center animate-fade-in">
             <button 
               onClick={() => setIsCartOpen(true)}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-full py-3.5 px-6 font-bold shadow-[0_8px_30px_rgba(79,70,229,0.5)] flex items-center gap-3 w-full max-w-sm transition-transform active:scale-95"
+              className="bg-amaranth-600 hover:bg-amaranth-700 text-white rounded-[1.5rem] py-4 px-6 font-black shadow-[0_12px_40px_rgba(223,36,77,0.3)] flex items-center gap-4 w-full max-w-sm transition-transform active:scale-95"
             >
-              <span className="bg-white/20 w-8 h-8 rounded-full flex items-center justify-center text-sm">{totalItemsInCart}</span>
-              <span className="flex-1 text-left">View Current Request</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+              <span className="bg-white text-amaranth-600 w-8 h-8 rounded-xl flex items-center justify-center text-sm shadow-sm">{totalItemsInCart}</span>
+              <span className="flex-1 text-left uppercase tracking-tight">View Request</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"/></svg>
             </button>
           </div>
         )}
 
         {/* Cart Bottom Sheet */}
         {isCartOpen && (
-          <div className="fixed inset-0 z-50 flex justify-center items-end bg-slate-950/60 backdrop-blur-sm p-2 sm:p-4 animate-in fade-in">
+          <div className="fixed inset-0 z-[60] flex justify-center items-end bg-slate-900/40 backdrop-blur-sm p-4 animate-fade-in">
             {/* Click away dismiss */}
             <div className="absolute inset-0" onClick={() => setIsCartOpen(false)}></div>
             
-            <div className="relative bg-slate-900 border border-slate-800 w-full max-w-md rounded-[2rem] p-5 shadow-2xl flex flex-col max-h-[85vh] animate-in slide-in-from-bottom-10 duration-300">
+            <div className="relative bg-white border border-slate-50 w-full max-w-md rounded-[2.5rem] p-6 shadow-2xl flex flex-col max-h-[85vh] animate-fade-in">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  Request Detail
+                <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">
+                  Summary
                 </h2>
-                <button onClick={() => setIsCartOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-400 hover:text-white">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" /></svg>
+                <button onClick={() => setIsCartOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:text-amaranth-600 transition-all active:scale-90 shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>
 
               <div className="flex-1 overflow-y-auto no-scrollbar space-y-3 mb-6">
                 {cart.map(item => (
-                  <div key={item.id} className="flex justify-between items-center p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                  <div key={item.id} className="flex justify-between items-center p-4 rounded-[1.5rem] bg-slate-50 border border-slate-100 shadow-sm">
                     <div className="flex-1 pr-3">
-                      <p className="font-semibold text-slate-200 text-sm truncate">{item.name}</p>
+                      <p className="font-black text-slate-800 text-sm truncate uppercase tracking-tight">{item.name}</p>
                     </div>
-                    <div className="flex items-center gap-3 bg-slate-950/50 p-1 rounded-lg">
-                      <button onClick={() => updateQuantity(item.id, -1)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-white bg-slate-800 rounded-md">
+                    <div className="flex items-center gap-4 bg-white p-1.5 rounded-2xl shadow-inner border border-slate-100">
+                      <button onClick={() => updateQuantity(item.id, -1)} className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-amaranth-600 bg-slate-50 rounded-xl transition-all active:scale-90">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clipRule="evenodd" /></svg>
                       </button>
-                      <span className="font-bold text-sm text-white w-4 text-center">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, 1)} className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-white bg-slate-800 rounded-md">
+                      <span className="font-black text-sm text-slate-900 w-4 text-center">{item.quantity}</span>
+                      <button onClick={() => updateQuantity(item.id, 1)} className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-amaranth-600 bg-slate-50 rounded-xl transition-all active:scale-90">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
                       </button>
                     </div>
@@ -263,21 +263,22 @@ export default function ProfessorDashboard() {
                 ))}
               </div>
 
-              <form onSubmit={handleCheckout} className="space-y-4">
+              <form onSubmit={handleCheckout} className="space-y-4 pt-4 border-t border-slate-50">
                 <div>
+                   <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1 mb-2 block">Delivery Room</label>
                   <input 
                     type="text" 
                     required
-                    placeholder="Enter Room Number (e.g. 504)..."
+                    placeholder="Enter Room Number..."
                     value={roomNumber}
                     onChange={(e) => setRoomNumber(e.target.value)}
-                    className="form-input text-lg font-semibold py-4"
+                    className="form-input text-lg font-black py-4 uppercase"
                   />
                 </div>
                 <button 
                   type="submit" 
                   disabled={isCheckingOut || !roomNumber}
-                  className="btn-primary bg-indigo-600 hover:bg-indigo-500 text-white disabled:opacity-50 disabled:scale-100"
+                  className="btn-primary"
                 >
                   {isCheckingOut ? "Sending..." : "Confirm Request"}
                 </button>

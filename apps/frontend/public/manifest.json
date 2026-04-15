@@ -1,21 +1,24 @@
 {
-  "name": "Campus Assist",
-  "short_name": "Assist",
-  "description": "Smart communication platform for campus logistics.",
+  "name": "Campus Logistics Platform",
+  "short_name": "CampusAssist",
+  "description": "Real-time logistics and assistance platform for campus environments.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#4f46e5",
+  "background_color": "#fffbeb",
+  "theme_color": "#df244d",
   "icons": [
     {
-      "src": "/icon.png",
+      "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icon.png",
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "orientation": "portrait"
 }

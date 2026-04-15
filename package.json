@@ -1,0 +1,11 @@
+{
+  "name": "madlab-mpr",
+  "private": true,
+  "scripts": {
+    "backend": "npm run dev --prefix apps/backend",
+    "frontend": "npm run dev --prefix apps/frontend"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}

@@ -7,6 +7,7 @@ import { safeNavigate } from "@/lib/safeNavigate";
 interface AuthUser {
   id: string;
   username: string;
+  email?: string;
   name: string;
   role: string;
 }

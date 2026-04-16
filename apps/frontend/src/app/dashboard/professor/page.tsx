@@ -44,8 +44,9 @@ export default function ProfessorDashboard() {
   }, []);
 
   useEffect(() => {
-    if (!user?.email) return;
-    const unsubscribe = subscribeToProfessorOrders(user.email, (orders) => {
+    const userEmail = user?.email || user?.username;
+    if (!userEmail) return;
+    const unsubscribe = subscribeToProfessorOrders(userEmail, (orders) => {
       setActiveOrders(orders);
     });
     return () => unsubscribe();
@@ -75,14 +76,15 @@ export default function ProfessorDashboard() {
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !user.email) return;
+    if (!user) return;
+    const userEmail = user.email || user.username;
     if (cart.length === 0) return;
 
     setIsCheckingOut(true);
     try {
       await createOrder({
-        professorEmail: user.email,
-        professorName: user.email.split('@')[0], 
+        professorEmail: userEmail,
+        professorName: userEmail.split('@')[0], 
         roomNumber,
         items: cart,
         status: "Pending",

@@ -1,7 +1,7 @@
 // Professional Firebase API Service for Next.js
 // You can import this from '@/lib/firebaseApi' in your components
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = '/api';
 
 export const AuthAPI = {
   login: async (credentials) => {

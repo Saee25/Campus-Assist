@@ -14,7 +14,7 @@ const ROLE_CONFIG: Record<string, { color: string; bg: string; border: string; l
 };
 
 export default function Profile() {
-  const { user, userRole, mockLogout } = useAuth();
+  const { user, userRole, logout } = useAuth();
   const router = useRouter();
   const [userName, setUserName] = useState<string>("");
 
@@ -25,7 +25,7 @@ export default function Profile() {
   }, [user]);
 
   const handleLogout = async () => {
-    mockLogout();
+    logout();
     router.push("/login");
   };
 

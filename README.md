@@ -1,4 +1,4 @@
-# 📦 MADLab-MPR: Smart Campus Logistics Platform
+# Smart Campus Logistics Platform
 
 A real-time, multi-modal logistics management system designed for campus environments. This platform streamlines resource requests, tracking, and fulfillment using a modern technology stack.
 
@@ -85,8 +85,3 @@ Ensure you have the following keys in your `apps/backend/.env`:
 - `FIREBASE_CLIENT_EMAIL`
 - `FIREBASE_PRIVATE_KEY`
 - `SOCKET_PORT` (if different)
-
----
-
-## 📄 License
-This project is for internal campus use within the MADLab ecosystem.

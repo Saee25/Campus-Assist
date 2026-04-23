@@ -11,6 +11,7 @@ const withPWA = withPWAInit({
 
 const nextConfig: NextConfig = {
   /* config options here */
+  allowedDevOrigins: ["willodean-extrametrical-millesimally.ngrok-free.dev"],
   outputFileTracingRoot: path.resolve(__dirname, "../../"),
   async rewrites() {
     return [
